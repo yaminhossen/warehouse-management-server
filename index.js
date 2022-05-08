@@ -40,6 +40,14 @@ async function run() {
             res.send(result);
         })
 
+        // item collection api
+        app.get('/item', async (req, res) => {
+            const query = {};
+            const cursor = itemCollection.find(query);
+            const items = await cursor.toArray();
+            res.send(items);
+        })
+
         // PUT
         app.put('/item/:id', async (req, res) => {
             const id = req.params.id;
