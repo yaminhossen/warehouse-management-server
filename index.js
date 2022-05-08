@@ -40,6 +40,21 @@ async function run() {
             res.send(result);
         })
 
+        // PUT
+        app.put('/item/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedItem = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    quantity: updatedItem.quantity
+                }
+            };
+            const result = await itemCollection.updateOne(filter, updatedDoc, options);
+            res.send(result);
+        })
+
         // DELETE
         app.delete('/item/:id', async (req, res) => {
             const id = req.params.id;
